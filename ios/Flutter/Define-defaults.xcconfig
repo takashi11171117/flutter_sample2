@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  Runner
+//
+//  Created by 斉藤尚 on 2021/03/20.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+APP_NAME=FlutterSample
+APP_SUFFIX=
