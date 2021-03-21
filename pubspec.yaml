@@ -14,8 +14,10 @@ dependencies:
   hooks_riverpod:
   intl: 0.17.0
 dev_dependencies:
+  build_runner:
   flutter_test:
     sdk: flutter
+  freezed:
   pedantic_mono:
 flutter:
   generate: true
