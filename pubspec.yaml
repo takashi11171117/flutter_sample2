@@ -7,8 +7,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_hooks:
   flutter_localizations:
     sdk: flutter
+  freezed_annotation:
+  hooks_riverpod:
   intl: 0.17.0
 dev_dependencies:
   flutter_test:
