@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'environment_config.dart' as env;
+import 'gen/assets.gen.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,13 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
-      home: const MyHomePage(title: 'top'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key, this.title}) : super(key: key);
+  const MyHomePage({Key? key, this.title = ''}) : super(key: key);
 
   final String title;
 
@@ -54,6 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            Assets.images.abundance.image(
+              width: 150,
             ),
           ],
         ),
