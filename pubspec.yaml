@@ -4,14 +4,18 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 dependencies:
+  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  flutter_localizations:
+    sdk: flutter
+  intl: 0.17.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
   pedantic_mono:
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/images/
