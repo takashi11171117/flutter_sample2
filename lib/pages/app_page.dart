@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_sample2/models/example.dart';
 import 'package:ftpconnect/ftpconnect.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -42,12 +44,20 @@ class AppPage extends HookWidget {
               width: 150,
             ),
             ElevatedButton(
-              child: const Text('Button'),
               style: ElevatedButton.styleFrom(
                 primary: Colors.orange,
                 onPrimary: Colors.white,
               ),
               onPressed: _uploadStepByStep,
+              child: const Text('ftp'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                onPrimary: Colors.white,
+              ),
+              onPressed: _saveHive,
+              child: const Text('hive'),
             ),
           ],
         ),
@@ -97,5 +107,11 @@ class AppPage extends HookWidget {
     } on Exception catch (e) {
       await _log('Error: ${e.toString()}');
     }
+  }
+
+  Future<void> _saveHive() async {
+    final example = Example()..name = 'test';
+    final box = Hive.box<Example>('examples');
+    await box.add(example);
   }
 }
