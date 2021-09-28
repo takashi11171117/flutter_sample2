@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -59,6 +62,14 @@ class AppPage extends HookWidget {
               onPressed: _saveHive,
               child: const Text('hive'),
             ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                onPrimary: Colors.white,
+              ),
+              onPressed: _saveFile,
+              child: const Text('file'),
+            ),
           ],
         ),
       ),
@@ -113,5 +124,24 @@ class AppPage extends HookWidget {
     final example = Example()..name = 'test';
     final box = Hive.box<Example>('examples');
     await box.add(example);
+  }
+
+  Future<void> _saveFile() async {
+    try {
+      final tempDir = await ExtStorage.getExternalStoragePublicDirectory(
+          ExtStorage.DIRECTORY_DOWNLOADS);
+      final fullPath = '$tempDir/sample.png';
+      final response = await Dio().get<Uint8List>(
+          'https://pbs.twimg.com/profile_images/1318213516935917568/mbU5hOLy_400x400.png',
+          options: Options(
+            responseType: ResponseType.bytes,
+          ));
+      final file = File(fullPath);
+      final raf = file.openSync(mode: FileMode.write)
+        ..writeFromSync(response.data!);
+      await raf.close();
+    } catch (e) {
+      print(e);
+    }
   }
 }
