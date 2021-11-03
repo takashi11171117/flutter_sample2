@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sample2/models/example.dart';
 import 'package:ftpconnect/ftpconnect.dart';
@@ -13,7 +12,6 @@ import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../gen/assets.gen.dart';
 import 'app_page_notifier.dart';
 
 class AppPage extends HookWidget {
@@ -27,6 +25,8 @@ class AppPage extends HookWidget {
     final notifier = useProvider(provider);
     final counter = useProvider(appPageNotifierProvider.state
         .select((AppPageState state) => state.counter));
+    final privateIp = useProvider(appPageNotifierProvider.state
+        .select((AppPageState state) => state.privateIp));
 
     return Scaffold(
       appBar: AppBar(
@@ -37,15 +37,21 @@ class AppPage extends HookWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              AppLocalizations.of(context)!.privacyPolicy,
+              '$privateIp:8080',
             ),
-            Text(
-              counter.toString(),
-              style: Theme.of(context).textTheme.headline4,
+            SizedBox(
+              height: 16,
             ),
-            Assets.images.abundance.image(
-              width: 150,
-            ),
+            // Text(
+            //   AppLocalizations.of(context)!.privacyPolicy,
+            // ),
+            // Text(
+            //   counter.toString(),
+            //   style: Theme.of(context).textTheme.headline4,
+            // ),
+            // Assets.images.abundance.image(
+            //   width: 150,
+            // ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: Colors.orange,
@@ -132,7 +138,7 @@ class AppPage extends HookWidget {
           ExtStorage.DIRECTORY_DOWNLOADS);
       final fullPath = '$tempDir/sample.png';
       final response = await Dio().get<Uint8List>(
-          'https://pbs.twimg.com/profile_images/1318213516935917568/mbU5hOLy_400x400.png',
+          'https://images.unsplash.com/photo-1604675223954-b1aabd668078?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80',
           options: Options(
             responseType: ResponseType.bytes,
           ));

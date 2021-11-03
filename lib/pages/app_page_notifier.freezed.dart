@@ -16,9 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$AppPageStateTearOff {
   const _$AppPageStateTearOff();
 
-  _AppPageState call({int counter = 0}) {
+  _AppPageState call({int counter = 0, String privateIp = ''}) {
     return _AppPageState(
       counter: counter,
+      privateIp: privateIp,
     );
   }
 }
@@ -29,6 +30,7 @@ const $AppPageState = _$AppPageStateTearOff();
 /// @nodoc
 mixin _$AppPageState {
   int get counter => throw _privateConstructorUsedError;
+  String get privateIp => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AppPageStateCopyWith<AppPageState> get copyWith =>
@@ -40,7 +42,7 @@ abstract class $AppPageStateCopyWith<$Res> {
   factory $AppPageStateCopyWith(
           AppPageState value, $Res Function(AppPageState) then) =
       _$AppPageStateCopyWithImpl<$Res>;
-  $Res call({int counter});
+  $Res call({int counter, String privateIp});
 }
 
 /// @nodoc
@@ -54,12 +56,17 @@ class _$AppPageStateCopyWithImpl<$Res> implements $AppPageStateCopyWith<$Res> {
   @override
   $Res call({
     Object? counter = freezed,
+    Object? privateIp = freezed,
   }) {
     return _then(_value.copyWith(
       counter: counter == freezed
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
               as int,
+      privateIp: privateIp == freezed
+          ? _value.privateIp
+          : privateIp // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -71,7 +78,7 @@ abstract class _$AppPageStateCopyWith<$Res>
           _AppPageState value, $Res Function(_AppPageState) then) =
       __$AppPageStateCopyWithImpl<$Res>;
   @override
-  $Res call({int counter});
+  $Res call({int counter, String privateIp});
 }
 
 /// @nodoc
@@ -87,27 +94,35 @@ class __$AppPageStateCopyWithImpl<$Res> extends _$AppPageStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? counter = freezed,
+    Object? privateIp = freezed,
   }) {
     return _then(_AppPageState(
       counter: counter == freezed
           ? _value.counter
           : counter // ignore: cast_nullable_to_non_nullable
               as int,
+      privateIp: privateIp == freezed
+          ? _value.privateIp
+          : privateIp // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 class _$_AppPageState implements _AppPageState {
-  const _$_AppPageState({this.counter = 0});
+  const _$_AppPageState({this.counter = 0, this.privateIp = ''});
 
   @JsonKey(defaultValue: 0)
   @override
   final int counter;
+  @JsonKey(defaultValue: '')
+  @override
+  final String privateIp;
 
   @override
   String toString() {
-    return 'AppPageState(counter: $counter)';
+    return 'AppPageState(counter: $counter, privateIp: $privateIp)';
   }
 
   @override
@@ -115,12 +130,18 @@ class _$_AppPageState implements _AppPageState {
     return identical(this, other) ||
         (other is _AppPageState &&
             (identical(other.counter, counter) ||
-                const DeepCollectionEquality().equals(other.counter, counter)));
+                const DeepCollectionEquality()
+                    .equals(other.counter, counter)) &&
+            (identical(other.privateIp, privateIp) ||
+                const DeepCollectionEquality()
+                    .equals(other.privateIp, privateIp)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(counter);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(counter) ^
+      const DeepCollectionEquality().hash(privateIp);
 
   @JsonKey(ignore: true)
   @override
@@ -129,10 +150,13 @@ class _$_AppPageState implements _AppPageState {
 }
 
 abstract class _AppPageState implements AppPageState {
-  const factory _AppPageState({int counter}) = _$_AppPageState;
+  const factory _AppPageState({int counter, String privateIp}) =
+      _$_AppPageState;
 
   @override
   int get counter => throw _privateConstructorUsedError;
+  @override
+  String get privateIp => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AppPageStateCopyWith<_AppPageState> get copyWith =>
