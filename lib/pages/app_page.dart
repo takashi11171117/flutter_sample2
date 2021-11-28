@@ -5,7 +5,9 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_archive/flutter_archive.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_mailer/flutter_mailer.dart';
 import 'package:flutter_sample2/models/example.dart';
 import 'package:ftpconnect/ftpconnect.dart';
 import 'package:hive/hive.dart';
@@ -75,6 +77,14 @@ class AppPage extends HookWidget {
               ),
               onPressed: _saveFile,
               child: const Text('file'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.orange,
+                onPrimary: Colors.white,
+              ),
+              onPressed: _sendMail,
+              child: const Text('mail'),
             ),
           ],
         ),
@@ -146,8 +156,29 @@ class AppPage extends HookWidget {
       final raf = file.openSync(mode: FileMode.write)
         ..writeFromSync(response.data!);
       await raf.close();
+
+      await ZipFile.extractToDirectory(
+          zipFile: file, destinationDir: Directory('${tempDir!}/ZipData'));
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> _sendMail() async {
+    final tempDir = await ExtStorage.getExternalStoragePublicDirectory(
+        ExtStorage.DIRECTORY_DOWNLOADS);
+    final fullPath = '$tempDir/sample.png';
+    final mailOptions = MailOptions(
+      body: 'a long body for the email <br> with a subset of HTML',
+      subject: 'the Email Subject',
+      recipients: ['example@example.com'],
+      isHTML: true,
+      bccRecipients: ['other@example.com'],
+      ccRecipients: ['third@example.com'],
+      attachments: [
+        fullPath,
+      ],
+    );
+    await FlutterMailer.send(mailOptions);
   }
 }
